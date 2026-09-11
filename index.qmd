@@ -2,4 +2,10 @@
 title: "Welcome to my website!"
 ---
 
-This is a website created for NTRES 6100 Lab 3 exercise 2.
+## hello!
+
+This is a Zhangfan (Flora) Lyu.
+
+### bio
+
+I'm a second-year master’s student in the O'Brien Lab. I earned my Bachelor of Science in Nutritional Sciences with a specialization in metabolism, health and disease from McGill University in Montréal, Québec. My research investigates how differences in dietary copper bioavailability from the vegetarian vs. the omnivore diets impact the gut microbiome composition. In my spare time, I love cycling and archery.
