@@ -1,5 +1,5 @@
 ---
-title: "Lab-3-penguins"
+title: "Welcome to my website!"
 ---
 
 This is a website created for NTRES 6100 Lab 3 exercise 2.

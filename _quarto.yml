@@ -3,13 +3,14 @@ project:
   output-dir: docs
 
 website:
-  title: "This is a website"
+  title: "zhangfan lyu"
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: home
       - about.qmd
-      - Academic Experience.qmd
+      - education.qmd
+      - projects.qmd
 
 format:
   html:
