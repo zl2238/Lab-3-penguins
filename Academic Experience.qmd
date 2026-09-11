@@ -1,0 +1,8 @@
+---
+title: "Academic Experience"
+editor: visual
+---
+
+![](https://thumb.wikimedia.org/wikipedia/commons/thumb/7/76/Mcgill_university_coa.png/250px-Mcgill_university_coa.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)
+
+![](https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/Cornell_University_seal.svg/250px-Cornell_University_seal.svg.png?utm_source=en.wikipedia.org&utm_campaign=parser&utm_content=thumbnail)

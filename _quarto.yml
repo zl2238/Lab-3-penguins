@@ -3,18 +3,17 @@ project:
   output-dir: docs
 
 website:
-  title: "Lab-3-penguins"
+  title: "This is a website"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - Academic Experience.qmd
 
 format:
   html:
-    theme:
-      - cosmo
-      - brand
+    theme: Morph
     css: styles.css
     toc: true
 
