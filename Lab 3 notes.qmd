@@ -5,19 +5,24 @@ editor: visual
 execute:
   warning: false
 ---
+
 ## Loading packages
+
 ```{r}
 library(tidyverse)
 library(palmerpenguins)
 ```
 
 ## Dataset overview in a separate window
+
 ```{r}
 view(penguins)
 ```
 
 ## Playing around with R codes
+
 ### The distribution of a single trait
+
 ```{r}
 penguins %>%
   ggplot() +
@@ -30,7 +35,9 @@ penguins %>%
   geom_histogram(mapping = aes(x = bill_length_mm, fill=species)) +
   facet_wrap(~species, nrow=3)
 ```
+
 ### The relationship between multiple traits
+
 ```{r}
 penguins %>%
   ggplot(mapping = aes(x = body_mass_g, y=flipper_length_mm, color=species)) +
@@ -39,6 +46,7 @@ penguins %>%
 ```
 
 ### The level of sexual dimorphism
+
 ```{r}
 penguins %>%
   ggplot(mapping = aes(x = bill_length_mm, y=bill_depth_mm, color=sex)) +
@@ -54,7 +62,9 @@ penguins %>%
   coord_flip() +
   facet_wrap(~species)
 ```
+
 ### Any temporal trend in the dataset, or patterns within the same species across different islands
+
 ```{r}
 penguins %>%
   ggplot() +
@@ -63,6 +73,7 @@ penguins %>%
 ```
 
 ### color inside aes() vs outside aes()
+
 ```{r}
 # Every single point will be blue, and no legend is created
 ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +
@@ -115,4 +126,3 @@ ggplot(data = penguins,
   geom_point(alpha = 0.4) +
   geom_smooth()
 ```
-

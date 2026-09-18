@@ -11,6 +11,8 @@ website:
       - about.qmd
       - education.qmd
       - projects.qmd
+      - Lab 3 notes.qmd
+      - Lab_4.qmd
 
 format:
   html:

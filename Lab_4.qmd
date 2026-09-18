@@ -1,0 +1,116 @@
+---
+title: "Lab 4"
+format: html
+editor: visual
+execute:
+  warning: false
+---
+
+```{r}
+#| include: false
+library(tidyverse)
+library(dslabs) #install.packages("dslabs")
+```
+
+```{r}
+#| include: false
+gapminder |> 
+  head(5)
+```
+```{r}
+#| include: false
+gapminder |> 
+  pull(country) ## only give the 'country' column
+
+countries <- gapminder |> 
+  filter(region == "Caribbean") |> 
+  pull(country)
+
+gapminder |> 
+  filter(country %in% countries)
+```
+
+## Question 1
+#### Which five countries had the largest population size in 2015 (the most recent year for which population sizes are included in this dataset), and how has the population sizes in those countries changes since 1960?
+
+```{r}
+top5 <- gapminder |> 
+  filter(year == 2015) |> 
+  arrange(-population) |> 
+  select(country) |> 
+  head(5) |> 
+  pull()
+
+gapminder |> 
+  filter(country %in% top5) |> 
+  ggplot() +
+  geom_line(mapping = aes(x = year, y = population, color = country))
+```
+
+## Question 2
+#### Rank the following countries in infant mortality rate in 2015. (Turkey, Poland, South Korea, Russia, Vietnam, South Africa)
+```{r}
+gapminder |> 
+  filter(country %in% c("Turkey","Poland","South Korea", "Russia", "Vietnam", "South Africa"), year == 2015) |> 
+  arrange(infant_mortality) |> 
+  select(country, infant_mortality)
+```
+
+## Question 3
+#### What is the general relationship between per-capita GDP and fertility rate?
+```{r}
+gapminder |> 
+  filter(year == 2000) |> 
+  ggplot(aes(x = fertility, y = gdp / population)) +
+  geom_point() + 
+  geom_smooth(se = F, method = "lm") # se = shadow area around line; method = "lm" is to make the line linear
+```
+
+## Question 4
+#### If you break down the relationship between per-capita GDP and fertility rate by continent, which continent (or regions) stands out as an outlier? (Bonus question: why might this be?)
+```{r}
+gapminder |> 
+  filter(year == 2000) |> 
+  ggplot(aes(x = fertility, y = gdp/population, color = continent)) +
+  geom_point() + 
+  geom_smooth(se = F, method = "lm") +
+  facet_wrap(~continent, scales = "free_y") # to separate 1 graph into several graphs based on continent
+```
+
+## Question 5
+#### There are roughly seven billion people in the world today. Which map shows where people live? (Each figure represents 1 billion people.)
+```{r}
+gapminder |> 
+  filter(year == 2015) |> 
+  group_by(continent) |>
+  summarize(population_in_billion = sum(population)/10^9) |>
+  ggplot(aes(x = continent, y = population_in_billion, fill = continent)) +
+  geom_col()
+  
+```
+
+## Question 6
+#### What is the overall life expectancy for the world population (i.e. global average)?
+```{r}
+gapminder |> 
+  filter(year == 2015) |> 
+  summarize(expected_life = sum(life_expectancy * population)/sum(population))
+```
+
+## Question 7
+#### What is the gap in life expectancy between Europe and Africa?
+```{r}
+gapminder |> 
+  filter(year == 2015) |> 
+  group_by(continent) |> 
+  summarize(expected_life = sum(life_expectancy * population)/sum(population)) |> 
+  ggplot(aes(x = continent, y = expected_life)) +
+  geom_col()
+
+gapminder |>
+  filter(year == 2015) |>
+  ggplot(aes(x = continent, y = life_expectancy)) +
+  geom_jitter(aes(color = continent), height = 0) +
+  geom_boxplot(alpha = 0, outlier.alpha = 0)
+```
+

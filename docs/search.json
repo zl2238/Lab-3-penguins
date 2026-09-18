@@ -1,21 +1,63 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to my website!",
+    "objectID": "Lab_4.html",
+    "href": "Lab_4.html",
+    "title": "Lab 4",
     "section": "",
-    "text": "This is a Zhangfan (Flora) Lyu.\n\n\nI’m a second-year master’s student in the O’Brien Lab. I earned my Bachelor of Science in Nutritional Sciences with a specialization in metabolism, health and disease from McGill University in Montréal, Québec. My research investigates how differences in dietary copper bioavailability from the vegetarian vs. the omnivore diets impact the gut microbiome composition. In my spare time, I love cycling and archery."
+    "text": "top5 &lt;- gapminder |&gt; \n  filter(year == 2015) |&gt; \n  arrange(-population) |&gt; \n  select(country) |&gt; \n  head(5) |&gt; \n  pull()\n\ngapminder |&gt; \n  filter(country %in% top5) |&gt; \n  ggplot() +\n  geom_line(mapping = aes(x = year, y = population, color = country))"
   },
   {
-    "objectID": "index.html#hello",
-    "href": "index.html#hello",
-    "title": "Welcome to my website!",
+    "objectID": "Lab_4.html#question-1",
+    "href": "Lab_4.html#question-1",
+    "title": "Lab 4",
     "section": "",
-    "text": "This is a Zhangfan (Flora) Lyu.\n\n\nI’m a second-year master’s student in the O’Brien Lab. I earned my Bachelor of Science in Nutritional Sciences with a specialization in metabolism, health and disease from McGill University in Montréal, Québec. My research investigates how differences in dietary copper bioavailability from the vegetarian vs. the omnivore diets impact the gut microbiome composition. In my spare time, I love cycling and archery."
+    "text": "top5 &lt;- gapminder |&gt; \n  filter(year == 2015) |&gt; \n  arrange(-population) |&gt; \n  select(country) |&gt; \n  head(5) |&gt; \n  pull()\n\ngapminder |&gt; \n  filter(country %in% top5) |&gt; \n  ggplot() +\n  geom_line(mapping = aes(x = year, y = population, color = country))"
   },
   {
-    "objectID": "about me.html",
-    "href": "about me.html",
+    "objectID": "Lab_4.html#question-2",
+    "href": "Lab_4.html#question-2",
+    "title": "Lab 4",
+    "section": "Question 2",
+    "text": "Question 2\n\nRank the following countries in infant mortality rate in 2015. (Turkey, Poland, South Korea, Russia, Vietnam, South Africa)\n\ngapminder |&gt; \n  filter(country %in% c(\"Turkey\",\"Poland\",\"South Korea\", \"Russia\", \"Vietnam\", \"South Africa\"), year == 2015) |&gt; \n  arrange(infant_mortality) |&gt; \n  select(country, infant_mortality)\n\n       country infant_mortality\n1  South Korea              2.9\n2       Poland              4.5\n3       Russia              8.2\n4       Turkey             11.6\n5      Vietnam             17.3\n6 South Africa             33.6"
+  },
+  {
+    "objectID": "Lab_4.html#question-3",
+    "href": "Lab_4.html#question-3",
+    "title": "Lab 4",
+    "section": "Question 3",
+    "text": "Question 3\n\nWhat is the general relationship between per-capita GDP and fertility rate?\n\ngapminder |&gt; \n  filter(year == 2000) |&gt; \n  ggplot(aes(x = fertility, y = gdp / population)) +\n  geom_point() + \n  geom_smooth(se = F, method = \"lm\") # se = shadow area around line; method = \"lm\" is to make the line linear"
+  },
+  {
+    "objectID": "Lab_4.html#question-4",
+    "href": "Lab_4.html#question-4",
+    "title": "Lab 4",
+    "section": "Question 4",
+    "text": "Question 4\n\nIf you break down the relationship between per-capita GDP and fertility rate by continent, which continent (or regions) stands out as an outlier? (Bonus question: why might this be?)\n\ngapminder |&gt; \n  filter(year == 2000) |&gt; \n  ggplot(aes(x = fertility, y = gdp/population, color = continent)) +\n  geom_point() + \n  geom_smooth(se = F, method = \"lm\") +\n  facet_wrap(~continent, scales = \"free_y\") # to separate 1 graph into several graphs based on continent"
+  },
+  {
+    "objectID": "Lab_4.html#question-5",
+    "href": "Lab_4.html#question-5",
+    "title": "Lab 4",
+    "section": "Question 5",
+    "text": "Question 5\n\nThere are roughly seven billion people in the world today. Which map shows where people live? (Each figure represents 1 billion people.)\n\ngapminder |&gt; \n  filter(year == 2015) |&gt; \n  group_by(continent) |&gt;\n  summarize(population_in_billion = sum(population)/10^9) |&gt;\n  ggplot(aes(x = continent, y = population_in_billion, fill = continent)) +\n  geom_col()"
+  },
+  {
+    "objectID": "Lab_4.html#question-6",
+    "href": "Lab_4.html#question-6",
+    "title": "Lab 4",
+    "section": "Question 6",
+    "text": "Question 6\n\nWhat is the overall life expectancy for the world population (i.e. global average)?\n\ngapminder |&gt; \n  filter(year == 2015) |&gt; \n  summarize(expected_life = sum(life_expectancy * population)/sum(population))\n\n  expected_life\n1       72.2457"
+  },
+  {
+    "objectID": "Lab_4.html#question-7",
+    "href": "Lab_4.html#question-7",
+    "title": "Lab 4",
+    "section": "Question 7",
+    "text": "Question 7\n\nWhat is the gap in life expectancy between Europe and Africa?\n\ngapminder |&gt; \n  filter(year == 2015) |&gt; \n  group_by(continent) |&gt; \n  summarize(expected_life = sum(life_expectancy * population)/sum(population)) |&gt; \n  ggplot(aes(x = continent, y = expected_life)) +\n  geom_col()\n\n\n\n\n\n\n\ngapminder |&gt;\n  filter(year == 2015) |&gt;\n  ggplot(aes(x = continent, y = life_expectancy)) +\n  geom_jitter(aes(color = continent), height = 0) +\n  geom_boxplot(alpha = 0, outlier.alpha = 0)"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
     "title": "about me",
     "section": "",
     "text": "About this site"
@@ -49,10 +91,24 @@
     "text": "Playing around with R codes\n\nThe distribution of a single trait\n\npenguins %&gt;%\n  ggplot() +\n  geom_density(mapping = aes(x = bill_length_mm, fill=species), alpha=0.5)\n\n\n\n\n\n\n\n\n\npenguins %&gt;%\n  ggplot() +\n  geom_histogram(mapping = aes(x = bill_length_mm, fill=species)) +\n  facet_wrap(~species, nrow=3)\n\n\n\n\n\n\n\n\n\n\nThe relationship between multiple traits\n\npenguins %&gt;%\n  ggplot(mapping = aes(x = body_mass_g, y=flipper_length_mm, color=species)) +\n  geom_point() +\n  geom_smooth(method=\"lm\")\n\n\n\n\n\n\n\n\n\n\nThe level of sexual dimorphism\n\npenguins %&gt;%\n  ggplot(mapping = aes(x = bill_length_mm, y=bill_depth_mm, color=sex)) +\n  geom_point(size=1) +\n  facet_wrap(~species)\n\n\n\n\n\n\n\n\n\npenguins %&gt;%\n  ggplot(mapping = aes(x=flipper_length_mm, y=sex, color=sex)) +\n  geom_boxplot(outlier.alpha = 0, alpha=0) +\n  geom_jitter(width = 0, size=1) +\n  coord_flip() +\n  facet_wrap(~species)\n\n\n\n\n\n\n\n\n\n\nAny temporal trend in the dataset, or patterns within the same species across different islands\n\npenguins %&gt;%\n  ggplot() +\n  geom_bar(mapping = aes(x = year, fill = island)) +\n  facet_wrap( ~ species)\n\n\n\n\n\n\n\n\n\n\ncolor inside aes() vs outside aes()\n\n# Every single point will be blue, and no legend is created\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm)) +\n  geom_point(color = \"blue\")\n\n\n\n\n\n\n\n\n\n# The color of the points changes depending on the 'species' column\nggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\nggplot(data = penguins, aes(x = species, y = flipper_length_mm)) +\n  geom_boxplot(aes(color = species), width = 0.3, show.legend = FALSE) +\n  geom_jitter(\n    aes(color = species),\n    alpha = 0.5,\n    show.legend = FALSE,\n    position = position_jitter(width = 0.2, seed = 0)\n  ) +\n  scale_color_manual(values = c(\"plum3\", \"slateblue3\", \"turquoise3\")) +\n  labs(x = \"Species\", y = \"Flipper length (mm)\")\n\n\n\n\n\n\n\n\n\nggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +\n  geom_point(aes(color = sex)) +\n  scale_color_manual(values = c(\"coral3\", \"darkslategray3\"),\n                     na.translate = FALSE) +\n  labs(\n    title = \"Penguin flipper and body mass\",\n    subtitle = \"Dimensions for male and female Adelie, Chinstrap and Gentoo Penguins at Palmer Station LTER\",\n    x = \"Flipper length (mm)\",\n    y = \"Body mass (g)\",\n    color = \"Penguin sex\"\n  ) +\n  theme(\n    legend.position = \"bottom\",\n    plot.title.position = \"plot\",\n    plot.caption = element_text(hjust = 0, face = \"italic\"),\n    plot.caption.position = \"plot\"\n  ) +\n  facet_wrap( ~ species)\n\n\n\n\n\n\n\n\n\nggplot(data = penguins, \n       aes(x = body_mass_g, y = flipper_length_mm, color = species)) +\n  geom_point(alpha = 0.4) +\n  geom_smooth()"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
+    "objectID": "about me.html",
+    "href": "about me.html",
     "title": "about me",
     "section": "",
     "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to my website!",
+    "section": "",
+    "text": "This is a Zhangfan (Flora) Lyu.\n\n\nI’m a second-year master’s student in the O’Brien Lab. I earned my Bachelor of Science in Nutritional Sciences with a specialization in metabolism, health and disease from McGill University in Montréal, Québec. My research investigates how differences in dietary copper bioavailability from the vegetarian vs. the omnivore diets impact the gut microbiome composition. In my spare time, I love cycling and archery."
+  },
+  {
+    "objectID": "index.html#hello",
+    "href": "index.html#hello",
+    "title": "Welcome to my website!",
+    "section": "",
+    "text": "This is a Zhangfan (Flora) Lyu.\n\n\nI’m a second-year master’s student in the O’Brien Lab. I earned my Bachelor of Science in Nutritional Sciences with a specialization in metabolism, health and disease from McGill University in Montréal, Québec. My research investigates how differences in dietary copper bioavailability from the vegetarian vs. the omnivore diets impact the gut microbiome composition. In my spare time, I love cycling and archery."
   }
 ]
